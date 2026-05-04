@@ -2,7 +2,7 @@ package conta_bancaria.model;
 
 import conta_bancaria.util.Cores;
 
-public class Conta {
+public abstract class Conta {
 	
 	private int numero;
 	private int agencia;
@@ -89,15 +89,27 @@ public class Conta {
 			break;
 		}
 
-		System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND + 
-				           "\n***********************************************************");
-		System.out.println("Dados da Conta:");
-		System.out.println("***********************************************************");
-		System.out.println("Numero da Conta: " + this.numero);
-		System.out.println("Agência: " + this.agencia);
-		System.out.println("Tipo da Conta: " + tipo);
-		System.out.println("Titular: " + this.titular);
-		System.out.printf("Saldo: R$ %.2f%n\n", this.saldo);
+		int largura = 72;
 
+		System.out.printf(Cores.ANSI_BLACK_BACKGROUND + "%-" + largura + "s%n", "");
+		System.out.printf(
+		    Cores.ANSI_BLACK_BACKGROUND + "%-" + largura + "s%n",
+		    Cores.TEXT_RED + "************************************************************************" + Cores.TEXT_WHITE
+		);
+		System.out.printf(
+		    Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_WHITE + "%-" + largura + "s%n",
+		    "Dados da Conta:"
+		);
+		System.out.printf(
+		    Cores.ANSI_BLACK_BACKGROUND + "%-" + largura + "s%n",
+		    Cores.TEXT_RED + "************************************************************************" + Cores.TEXT_WHITE
+		);
+		System.out.printf(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_WHITE + "%-" + largura + "s%n", "Numero da Conta: " + this.numero);
+		System.out.printf(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_WHITE + "%-" + largura + "s%n", "Agência: " + this.agencia);
+		System.out.printf(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_WHITE + "%-" + largura + "s%n", "Tipo da Conta: " + tipo);
+		System.out.printf(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_WHITE + "%-" + largura + "s%n", "Titular: " + this.titular);
+		System.out.printf(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_WHITE + "%-" + largura + "s%n", String.format("Saldo: R$ %.2f", this.saldo));
+		System.out.print(Cores.TEXT_RESET);
 	}
 }
+
