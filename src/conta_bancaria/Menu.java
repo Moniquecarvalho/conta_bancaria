@@ -3,6 +3,8 @@ package conta_bancaria;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import conta_bancaria.controller.ContaController;
+import conta_bancaria.model.Conta;
 import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
@@ -10,6 +12,7 @@ import conta_bancaria.util.Cores;
 public class Menu {
 
 	public static final Scanner leia = new Scanner(System.in);
+	private static final ContaController contaController = new ContaController();
 
 	public static void main(String[] args) {
 
@@ -57,11 +60,15 @@ public class Menu {
 			switch (opcao) {
 			case 1:
 				System.out.println(Cores.TEXT_WHITE + "Criar Conta\n\n");
+				
+				cadastrarConta();
 
 				keyPress();
 				break;
 			case 2:
 				System.out.println(Cores.TEXT_WHITE + "Listar todas as Contas\n\n");
+
+				listarContas();
 
 				keyPress();
 				break;
@@ -117,6 +124,44 @@ public class Menu {
 		System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para Continuar...");
 		leia.nextLine();
 
+	}
+
+	private static void listarContas() {
+
+		contaController.listarTodos();
+	}
+
+	private static void cadastrarConta() {
+
+		System.out.println("Digite o número da Agência: ");
+		int agencia = leia.nextInt();
+
+		System.out.println("Digite o nome do Titular: ");
+		leia.skip("\\R");
+		String titular = leia.nextLine();
+
+		System.out.println("Digite o tipo de conta (1 - CC | 2 - CP):");
+		int tipo = leia.nextInt();
+
+		System.out.println("Digite o Saldo  inicial da conta:");
+		float saldo = leia.nextFloat();
+
+		switch (tipo) {
+		case 1: {
+			System.out.println("Digite o limite da conta:");
+			float limite = leia.nextFloat();
+			contaController
+					.cadastrar(new ContaCorrente(contaController.gerarNumero(), agencia, tipo, titular, saldo, limite));
+		}
+		case 2: {
+			System.out.println("Digite o dia de aniversário da conta:");
+			int aniversario = leia.nextInt();
+			contaController.cadastrar(new ContaPoupanca(contaController.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+		}
+		default:
+			System.out.println(Cores.TEXT_RED_BOLD + "Tipo de conta inválido!" + Cores.TEXT_RESET);
+
+		}
 	}
 
 }
