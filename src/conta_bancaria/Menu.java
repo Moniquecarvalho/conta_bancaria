@@ -15,6 +15,8 @@ public class Menu {
 	private static final ContaController contaController = new ContaController();
 
 	public static void main(String[] args) {
+		
+		criarContasTeste();
 
 		int opcao;
 
@@ -162,6 +164,17 @@ public class Menu {
 			System.out.println(Cores.TEXT_RED_BOLD + "Tipo de conta inválido!" + Cores.TEXT_RESET);
 
 		}
+	}
+	
+	private static void criarContasTeste() {
+		contaController.cadastrar(
+				new ContaCorrente(contaController.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f));
+		contaController.cadastrar(
+				new ContaCorrente(contaController.gerarNumero(), 456, 1, "Maria Silva", 2000.00f, 200.00f));
+		contaController.cadastrar(
+				new ContaPoupanca(contaController.gerarNumero(), 123, 1, "Juliana Lima", 1000.00f, 12));
+		contaController.cadastrar(
+				new ContaPoupanca(contaController.gerarNumero(), 123, 2, "Fernanda Gomes", 8000.00f, 23));
 	}
 
 }
